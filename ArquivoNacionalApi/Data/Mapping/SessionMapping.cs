@@ -8,7 +8,7 @@ namespace ArquivoNacionalApi.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<Session> builder)
         {
-            builder.ToTable("session");
+            builder.ToTable("Session");
 
             builder.HasKey(x => x.Id);
 
@@ -16,8 +16,9 @@ namespace ArquivoNacionalApi.Data.Mapping
             builder.Property(x => x.PlayerLimit).HasColumnName("playerLimit").HasColumnType("int").IsRequired();
 
             builder.HasMany(x => x.Users)
-                   .WithOne()
-                   .HasPrincipalKey(x => x.Id);
+                   .WithOne(u => u.Session)
+                   .HasPrincipalKey(x => x.Id)
+                   .HasForeignKey(u => u.SessionId);
         }
     }
 }

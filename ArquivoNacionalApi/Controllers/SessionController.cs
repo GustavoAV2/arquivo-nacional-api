@@ -34,17 +34,10 @@ namespace ArquivoNacionalApi.Controllers
             return Ok(sessionDto);
         }
 
-        [HttpGet()]
+        [HttpGet("")]
         public ActionResult<IEnumerable<SessionDTO>> GetSessionsForUserById([FromQuery] Guid userId)
         {
             var sessionDtos = _sessionService.GetSessionsListByUserIdAsync(userId);
-            return Ok(sessionDtos);
-        }
-
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<SessionDTO>>> GetAllSessions()
-        {
-            var sessionDtos = await _sessionService.GetAllSessionsAsync();
             return Ok(sessionDtos);
         }
 

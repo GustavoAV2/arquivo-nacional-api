@@ -4,7 +4,7 @@ using ArquivoNacionalApi.Domain.Entities;
 
 namespace ArquivoNacionalApi.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IRepository<User> _userRepository;
 
@@ -79,5 +79,14 @@ namespace ArquivoNacionalApi.Services
             }
             return false;
         }
+    }
+
+    public interface IUserService
+    {
+        Task<IEnumerable<UserDTO>> GetAllUsersAsync();
+        Task<UserDTO> GetUserByIdAsync(Guid id);
+        void CreateUser(UserDTO userdto);
+        Task<bool> UpdateUserAsync(Guid id, UserDTO userdto);
+        Task<bool> DeleteUserAsync(Guid id);
     }
 }

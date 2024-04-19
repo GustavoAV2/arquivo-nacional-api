@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gustavo Voltolini\\source\\repos\\ArquivoNacionalApi\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj": {}
+    "C:\\Users\\Gustavo Voltolini\\Desktop\\MyCode\\arquivo-nacional-api\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gustavo Voltolini\\source\\repos\\ArquivoNacionalApi\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj": {
+    "C:\\Users\\Gustavo Voltolini\\Desktop\\MyCode\\arquivo-nacional-api\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gustavo Voltolini\\source\\repos\\ArquivoNacionalApi\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj",
+        "projectUniqueName": "C:\\Users\\Gustavo Voltolini\\Desktop\\MyCode\\arquivo-nacional-api\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj",
         "projectName": "ArquivoNacionalApi",
-        "projectPath": "C:\\Users\\Gustavo Voltolini\\source\\repos\\ArquivoNacionalApi\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj",
+        "projectPath": "C:\\Users\\Gustavo Voltolini\\Desktop\\MyCode\\arquivo-nacional-api\\ArquivoNacionalApi\\ArquivoNacionalApi.csproj",
         "packagesPath": "C:\\Users\\Gustavo Voltolini\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gustavo Voltolini\\source\\repos\\ArquivoNacionalApi\\ArquivoNacionalApi\\obj\\",
+        "outputPath": "C:\\Users\\Gustavo Voltolini\\Desktop\\MyCode\\arquivo-nacional-api\\ArquivoNacionalApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Gustavo Voltolini\\AppData\\Roaming\\NuGet\\NuGet.Config",

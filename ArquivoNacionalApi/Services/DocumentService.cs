@@ -4,7 +4,7 @@ using ArquivoNacionalApi.Domain.Entities;
 
 namespace ArquivoNacionalApi.Services
 {
-    public class DocumentService
+    public class DocumentService : IDocumentService
     {
         private readonly IRepository<Document> _documentRepository;
 
@@ -51,5 +51,14 @@ namespace ArquivoNacionalApi.Services
                 _documentRepository.Delete(document);
             }
         }
+    }
+
+    public interface IDocumentService
+    {
+        Task<IEnumerable<DocumentDTO>> GetAllDocumentsAsync();
+        Task<DocumentDTO> GetDocumentByIdAsync(Guid id);
+        void CreateDocument(DocumentDTO documentDto);
+        Task<bool> UpdateDocumentAsync(Guid id, DocumentDTO documentDto);
+        Task DeleteDocumentAsync(Guid id);
     }
 }

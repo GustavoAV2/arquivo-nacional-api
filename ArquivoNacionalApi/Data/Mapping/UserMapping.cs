@@ -8,7 +8,7 @@ namespace ArquivoNacionalApi.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("user");
+            builder.ToTable("User");
 
             builder.HasKey(x => x.Id);
 
@@ -19,7 +19,7 @@ namespace ArquivoNacionalApi.Data.Mapping
             builder.Property(x => x.State).HasColumnName("state").HasColumnType("varchar(50)").IsRequired();
 
             builder.HasOne(x => x.Session)
-                   .WithMany()
+                   .WithMany(s => s.Users)
                    .HasForeignKey(x => x.SessionId);
         }
     }

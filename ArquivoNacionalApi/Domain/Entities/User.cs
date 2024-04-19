@@ -23,8 +23,6 @@ public class User
     [MaxLength(255)]
     public string State { get; set; }
 
-
-    [Required]
     public Guid? SessionId { get; set; }
     public Session? Session { get; set; }
 }

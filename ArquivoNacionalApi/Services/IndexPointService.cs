@@ -4,11 +4,11 @@ using ArquivoNacionalApi.Domain.Entities;
 
 namespace ArquivoNacionalApi.Services
 {
-    public class IndexPointService
+    public class IndexPointService : IIndexPointService
     {
-        private readonly IRepository<IndexPoint> _indexPointRepository;
+        private readonly IIndexPointRepository _indexPointRepository;
 
-        public IndexPointService(IndexPointRepository indexPointRepository)
+        public IndexPointService(IIndexPointRepository indexPointRepository)
         {
             _indexPointRepository = indexPointRepository;
         }
@@ -53,5 +53,14 @@ namespace ArquivoNacionalApi.Services
             }
             return false;
         }
+    }
+
+    public interface IIndexPointService
+    {
+        Task<IEnumerable<IndexPointDTO>> GetAllIndexPointsAsync();
+        Task<IndexPointDTO> GetIndexPointByIdAsync(Guid id);
+        void CreateIndexPoint(IndexPointDTO indexPoint);
+        Task<bool> UpdateIndexPointAsync(Guid id, IndexPointDTO indexPointDto);
+        Task<bool> DeleteIndexPointAsync(Guid id);
     }
 }

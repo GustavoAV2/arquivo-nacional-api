@@ -8,7 +8,7 @@ namespace ArquivoNacionalApi.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<IndexPoint> builder)
         {
-            builder.ToTable("indexPoint");
+            builder.ToTable("IndexPoint");
 
             builder.HasKey(x => x.Id);
 

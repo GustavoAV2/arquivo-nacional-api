@@ -4,12 +4,12 @@ using ArquivoNacionalApi.Domain.Entities;
 
 namespace ArquivoNacionalApi.Services
 {
-    public class DocumentMetadataService
+    public class DocumentMetadataService : IDocumentMetadataService
     {
         private readonly IDocumentMetadataRepository _documentMetadataRepository;
-        private readonly IIndexRepository _indexRepository;
+        private readonly IIndexPointRepository _indexRepository;
 
-        public DocumentMetadataService(IDocumentMetadataRepository documentMetadataRepository, IIndexRepository indexRepository)
+        public DocumentMetadataService(IDocumentMetadataRepository documentMetadataRepository, IIndexPointRepository indexRepository)
         {
             _documentMetadataRepository = documentMetadataRepository;
             _indexRepository = indexRepository;
@@ -97,5 +97,14 @@ namespace ArquivoNacionalApi.Services
             }
             return false;
         }
+    }
+
+    public interface IDocumentMetadataService
+    {
+        Task<IEnumerable<DocumentMetadata>> GetAllDocumentMetadataAsync();
+        Task<DocumentMetadata> GetDocumentMetadataByIdAsync(Guid id);
+        void CreateDocumentMetadata(CreateDocumentMetadataDTO documentMetadataDto);
+        Task<bool> UpdateDocumentMetadataAsync(Guid userId, Guid documentId, UpdateDocumentMetadataDTO documentMetadataDto);
+        Task<bool> DeleteDocumentMetadataAsync(Guid id);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ArquivoNacionalApi.Data.Repositories
 {
-    public class IndexPointRepository : Repository<IndexPoint>, IIndexRepository
+    public class IndexPointRepository : Repository<IndexPoint>, IIndexPointRepository
     {
         public IndexPointRepository (DatabaseContext context) : base(context)
         { }
@@ -15,7 +15,7 @@ namespace ArquivoNacionalApi.Data.Repositories
         }
     }
 
-    public interface IIndexRepository : IRepository<IndexPoint> 
+    public interface IIndexPointRepository : IRepository<IndexPoint> 
     {
         List<IndexPoint> GetListIndexByName(List<string> names);
     }

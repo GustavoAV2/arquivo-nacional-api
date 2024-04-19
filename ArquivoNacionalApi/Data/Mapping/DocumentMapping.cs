@@ -8,7 +8,7 @@ namespace ArquivoNacionalApi.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<Document> builder)
         {
-            builder.ToTable("document");
+            builder.ToTable("Document");
 
             builder.HasKey(x => x.Id);
 

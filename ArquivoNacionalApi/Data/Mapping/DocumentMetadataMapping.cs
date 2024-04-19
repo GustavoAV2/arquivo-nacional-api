@@ -8,15 +8,15 @@ namespace ArquivoNacionalApi.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<DocumentMetadata> builder)
         {
-            builder.ToTable("documentMetadata");
+            builder.ToTable("DocumentMetadata");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).HasColumnName("id").IsRequired();
             builder.Property(x => x.Points).HasColumnName("points").HasColumnType("int").HasMaxLength(100000);
-            builder.Property(x => x.Title).HasColumnName("name").HasColumnType("varchar(300)");
-            builder.Property(x => x.Context).HasColumnName("name").HasColumnType("varchar(300)");
-            builder.Property(x => x.SocialMarkers).HasColumnName("name").HasColumnType("varchar(1000)");
+            builder.Property(x => x.Title).HasColumnName("title").HasColumnType("varchar(300)");
+            builder.Property(x => x.Context).HasColumnName("context").HasColumnType("varchar(1000)");
+            builder.Property(x => x.SocialMarkers).HasColumnName("socialMarkers").HasColumnType("varchar(1000)");
 
             builder.HasOne(x => x.Document)
                    .WithMany()

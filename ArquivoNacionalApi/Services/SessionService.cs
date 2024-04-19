@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ArquivoNacionalApi.Services
 {
-    public class SessionService
+    public class SessionService : ISessionService
     {
         private readonly ISessionRepository _sessionRepository;
         private readonly IUserRepository _userRepository;
@@ -23,9 +23,10 @@ namespace ArquivoNacionalApi.Services
             var session = _sessionRepository.GetSessionByUserId(userId).FirstOrDefault();
             var players = _userRepository.GetUsersBySessionId(session.Id);
 
-            var sessionDtos = new ActiveSessionDTO() { 
-                Id = session.Id, 
-                DocumentId = session.DocumentId, 
+            var sessionDtos = new ActiveSessionDTO()
+            {
+                Id = session.Id,
+                DocumentId = session.DocumentId,
                 PlayerLimit = session.PlayerLimit,
                 Players = players.Select(u => new PlayerDto()
                 {
@@ -61,7 +62,7 @@ namespace ArquivoNacionalApi.Services
             var sessionDtos = sessions.Select(s => new SessionDTO { Id = s.Id, DocumentId = s.DocumentId, PlayerLimit = s.PlayerLimit });
             return sessionDtos;
         }
-  
+
         public async Task<IEnumerable<SessionDTO>> GetAllSessionsAsync()
         {
             var sessions = await _sessionRepository.GetAllAsync();
@@ -109,4 +110,14 @@ namespace ArquivoNacionalApi.Services
         }
     }
 
+    public interface ISessionService
+    {
+        ActiveSessionDTO GetSessionActiveInfoByUserId(Guid userId);
+        Task CreateSession(CreateSessionDTO sessionDto);
+        IEnumerable<SessionDTO> GetSessionsListByUserIdAsync(Guid userId);
+        Task<IEnumerable<SessionDTO>> GetAllSessionsAsync();
+        Task<SessionDTO> GetSessionByIdAsync(Guid id);
+        Task<bool> UpdateSessionAsync(Guid id, UpdateSessionDTO session);
+        Task<bool> DeleteSessionAsync(Guid id);
+    }
 }

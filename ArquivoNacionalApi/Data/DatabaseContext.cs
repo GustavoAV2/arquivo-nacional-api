@@ -7,7 +7,6 @@ public class DatabaseContext : DbContext
 {
     public DbSet<Document> Documents { get; set; }
     public DbSet<DocumentMetadata> DocumentMetadata { get; set; }
-    public DbSet<DocumentMetadataIndexPoint> DocumentMetadataIndexPoints { get; set; }
     public DbSet<IndexPoint> IndexPoints { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<User> Users { get; set; }

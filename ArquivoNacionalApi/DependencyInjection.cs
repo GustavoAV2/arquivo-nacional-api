@@ -18,10 +18,19 @@ public static class DependencyInjection
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IDocumentRepository, DocumentRepository>();
+        services.AddTransient<IDocumentMetadataRepository, DocumentMetadataRepository>();
+        services.AddTransient<ISessionRepository, SessionRepository>();
+        services.AddTransient<IIndexPointRepository, IndexPointRepository>();
     }
 
     public static void AddServices(this IServiceCollection services)
     {
-        //services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IDocumentService, DocumentService>();
+        services.AddTransient<IDocumentMetadataService, DocumentMetadataService>();
+        services.AddTransient<ISessionService, SessionService>();
+        services.AddTransient<IIndexPointService, IndexPointService>();
     }
 }
