@@ -17,7 +17,7 @@ namespace ArquivoNacionalApi.Services
 
         public async Task<IEnumerable<DocumentMetadata>> GetAllDocumentMetadataAsync()
         {
-            return await _documentMetadataRepository.GetAllAsync();
+            return await _documentMetadataRepository.GetAllDocumentMetadataAsync();
         }
 
         public async Task<DocumentMetadata> GetDocumentMetadataByIdAsync(Guid id)

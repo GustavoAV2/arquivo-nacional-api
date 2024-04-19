@@ -18,12 +18,15 @@ namespace ArquivoNacionalApi.Services
             _documentMetadataRepository = documentMetadataRepository;
         }
 
-        public ActiveSessionDTO GetSessionActiveInfoByUserId(Guid userId)
+        public ActiveSessionDTO GetActiveSessionInfoByUserId(Guid userId)
         {
             var session = _sessionRepository.GetSessionByUserId(userId).FirstOrDefault();
+            if (session == null)
+            { return new ActiveSessionDTO(); };
+
             var players = _userRepository.GetUsersBySessionId(session.Id);
 
-            var sessionDtos = new ActiveSessionDTO()
+            var sessionDto = new ActiveSessionDTO()
             {
                 Id = session.Id,
                 DocumentId = session.DocumentId,
@@ -34,13 +37,17 @@ namespace ArquivoNacionalApi.Services
                     Points = CalcSessionPoints(u.Id, session.Id)
                 }).ToList()
             };
-            return sessionDtos;
+            return sessionDto;
         }
 
         private int CalcSessionPoints(Guid userId, Guid documentId)
         {
-            var session = _documentMetadataRepository.GetDocumentMetadataByUserIdAndDocumentIdAsync(userId, documentId);
-            return session.Points;
+            var metadata = _documentMetadataRepository.GetDocumentMetadataByUserIdAndDocumentIdAsync(userId, documentId);
+            if (metadata != null)
+            {
+                return metadata.Points;
+            }
+            return 0;
         }
 
         public async Task CreateSession(CreateSessionDTO sessionDto)
@@ -78,7 +85,6 @@ namespace ArquivoNacionalApi.Services
 
         public async Task<bool> UpdateSessionAsync(Guid id, UpdateSessionDTO session)
         {
-
             var listUsers = new List<User>();
             foreach (var idFound in session.UserIds)
             {
@@ -112,7 +118,7 @@ namespace ArquivoNacionalApi.Services
 
     public interface ISessionService
     {
-        ActiveSessionDTO GetSessionActiveInfoByUserId(Guid userId);
+        ActiveSessionDTO GetActiveSessionInfoByUserId(Guid userId);
         Task CreateSession(CreateSessionDTO sessionDto);
         IEnumerable<SessionDTO> GetSessionsListByUserIdAsync(Guid userId);
         Task<IEnumerable<SessionDTO>> GetAllSessionsAsync();

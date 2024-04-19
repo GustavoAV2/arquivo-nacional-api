@@ -1,4 +1,5 @@
 ﻿using ArquivoNacionalApi.Extensions;
+using System.Text.Json.Serialization;
 
 namespace ArquivoNacionalApi;
 
@@ -30,6 +31,11 @@ public class Startup
             options.AllowStatusCode404Response = true;
         });
 
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        });
+        
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.AddDatabase(Configuration.GetConnectionString("DefaultConnection"));

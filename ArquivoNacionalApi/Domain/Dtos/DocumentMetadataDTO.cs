@@ -1,4 +1,5 @@
-﻿namespace ArquivoNacionalApi.Domain.Dtos
+﻿
+namespace ArquivoNacionalApi.Domain.Dtos
 {
     public class DocumentMetadataDTO
     {

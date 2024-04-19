@@ -8,9 +8,9 @@ namespace ArquivoNacionalApi.Controllers
     [Route("api/[controller]")]
     public class IndexPointController : ControllerBase
     {
-        private readonly IndexPointService _indexPointService;
+        private readonly IIndexPointService _indexPointService;
 
-        public IndexPointController(IndexPointService indexPointService)
+        public IndexPointController(IIndexPointService indexPointService)
         {
             _indexPointService = indexPointService;
         }

@@ -8,9 +8,9 @@ namespace ArquivoNacionalApi.Controllers
     [Route("api/[controller]")]
     public class DocumentMetadataController : ControllerBase
     {
-        private readonly DocumentMetadataService _documentMetadataService;
+        private readonly IDocumentMetadataService _documentMetadataService;
 
-        public DocumentMetadataController(DocumentMetadataService documentMetadataService)
+        public DocumentMetadataController(IDocumentMetadataService documentMetadataService)
         {
             _documentMetadataService = documentMetadataService;
         }
@@ -40,7 +40,20 @@ namespace ArquivoNacionalApi.Controllers
         public async Task<ActionResult<IEnumerable<DocumentMetadataDTO>>> GetAllDocumentMetadata()
         {
             var documentMetadatas = await _documentMetadataService.GetAllDocumentMetadataAsync();
-            var documentMetadataDtos = documentMetadatas.Select(dm => new DocumentMetadataDTO { Id = dm.Id, DocumentId = dm.DocumentId, Title = dm.Title });
+            var documentMetadataDtos = documentMetadatas.Select(dm => new DocumentMetadataDTO { 
+                Id = dm.Id, 
+                DocumentId = dm.DocumentId, 
+                Title = dm.Title ,
+                SocialMarkers = dm.SocialMarkers,
+                Context = dm.Context,
+                IndexPoints = dm.IndexPoints
+                    .Select(i => new IndexPointDTO()
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                    }).ToList(),
+                Points = dm.Points
+            });
             return Ok(documentMetadataDtos);
         }
 

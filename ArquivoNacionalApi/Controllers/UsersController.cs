@@ -8,9 +8,9 @@ namespace ArquivoNacionalApi.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UserService _userService;
+    private readonly IUserService _userService;
 
-    public UserController(UserService userService)
+    public UserController(IUserService userService)
     {
         _userService = userService;
     }
@@ -26,5 +26,11 @@ public class UserController : ControllerBase
     public async Task<ActionResult<UserDTO>> GetUserById(Guid id)
     {
         return Ok(await _userService.GetUserByIdAsync(id));
+    }
+
+    [HttpGet()]
+    public async Task<ActionResult<List<UserDTO>>> GetAllUsers()
+    {
+        return Ok(await _userService.GetAllUsersAsync());
     }
 }

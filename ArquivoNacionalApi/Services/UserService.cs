@@ -18,11 +18,11 @@ namespace ArquivoNacionalApi.Services
             var allUsers = await _userRepository.GetAllAsync();
             return allUsers.Select(u => new UserDTO()
             {
+                Id = u.Id,
                 Email = u.Email,
                 Name = u.Name,
                 Password = u.Password,
-                State = u.State,
-                SessionId = u.SessionId.Value
+                State = u.State
             });
         }
 
@@ -31,6 +31,7 @@ namespace ArquivoNacionalApi.Services
             var user = await _userRepository.GetByIdAsync(id);
             return new UserDTO()
             {
+                Id = user.Id,
                 Email = user.Email,
                 Name = user.Name,
                 Password = user.Password,
@@ -43,6 +44,7 @@ namespace ArquivoNacionalApi.Services
         {
             var user = new User()
             {
+                Id = Guid.NewGuid(),
                 Email = userdto.Email,
                 Name = userdto.Name,
                 Password = userdto.Password,

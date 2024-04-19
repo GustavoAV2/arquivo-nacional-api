@@ -8,9 +8,9 @@ namespace ArquivoNacionalApi.Controllers
     [Route("api/[controller]")]
     public class SessionController : ControllerBase
     {
-        private readonly SessionService _sessionService;
+        private readonly ISessionService _sessionService;
 
-        public SessionController(SessionService sessionService)
+        public SessionController(ISessionService sessionService)
         {
             _sessionService = sessionService;
         }
@@ -27,7 +27,7 @@ namespace ArquivoNacionalApi.Controllers
         [HttpGet("/active/{id}/players")]
         public ActionResult<SessionDTO> GetSessionByUserId(Guid id)
         {
-            var sessionDto = _sessionService.GetSessionActiveInfoByUserId(id);
+            var sessionDto = _sessionService.GetActiveSessionInfoByUserId(id);
             if (sessionDto == null)
                 return NotFound();
 

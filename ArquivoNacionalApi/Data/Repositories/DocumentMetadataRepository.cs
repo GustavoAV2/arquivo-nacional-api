@@ -1,4 +1,5 @@
 ﻿using ArquivoNacionalApi.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArquivoNacionalApi.Data.Repositories
 {
@@ -14,15 +15,26 @@ namespace ArquivoNacionalApi.Data.Repositories
                 .Select(d => d.Document);
             return allowDocuments.ToList();
         }
+
         public DocumentMetadata GetDocumentMetadataByUserIdAndDocumentIdAsync(Guid userId, Guid documentId)
         {
-            var document = _context.DocumentMetadata.FirstOrDefault(d => d.UserId == userId && d.DocumentId == documentId);
+            var document = _context.DocumentMetadata
+                .Include(d => d.IndexPoints)
+                .Include(d => d.Document)
+                .FirstOrDefault(d => d.UserId == userId && d.DocumentId == documentId);
             return document;
+        }
+
+        public async Task<List<DocumentMetadata>> GetAllDocumentMetadataAsync()
+        {
+            return await _dbSet.Include(d => d.Document).Include(d => d.IndexPoints).ToListAsync();
         }
     }
 
     public interface IDocumentMetadataRepository : IRepository<DocumentMetadata>
     {
+        Task<List<DocumentMetadata>> GetAllDocumentMetadataAsync();
+
         List<Document> GetDocumentsByUserId(Guid userId);
 
         DocumentMetadata GetDocumentMetadataByUserIdAndDocumentIdAsync(Guid userId, Guid documentId);

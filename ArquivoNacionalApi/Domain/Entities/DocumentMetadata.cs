@@ -25,7 +25,7 @@ namespace ArquivoNacionalApi.Domain.Entities
 
         public string SocialMarkers { get; set; }
 
-        public int Points { get; set; }
+        public int Points { get; set; } = 0;
 
         public List<string> GetListSocialMakers()
         {
