@@ -1,6 +1,7 @@
 ﻿using ArquivoNacionalApi.Data.Repositories;
 using ArquivoNacionalApi.Domain.Dtos;
 using ArquivoNacionalApi.Domain.Entities;
+using System.Linq;
 
 namespace ArquivoNacionalApi.Services
 {
@@ -50,19 +51,36 @@ namespace ArquivoNacionalApi.Services
                 documentMetadataFound.SocialMarkers = documentMetadataDto.SocialMarkers ?? documentMetadataFound.SocialMarkers;
                 documentMetadataFound.Context = documentMetadataDto.Context ?? documentMetadataFound.Context;
 
-                UpdateIndexPoints(documentMetadataFound, documentMetadataDto.IndexPoints);
+                await UpdateIndexPoints(documentMetadataFound, documentMetadataDto.IndexPoints);
                 UpdateMetadataPoints(documentMetadataFound, documentMetadataDto);
                 
-                _documentMetadataRepository.Update(documentMetadataFound);
+                await _documentMetadataRepository.UpdateMetadata(documentMetadataFound);
                 return true;
             }
             return false;
         }
 
         private void UpdateMetadataPoints(DocumentMetadata documentMetadata, UpdateDocumentMetadataDTO documentMetadataDto)
-        { }
+        {
+            var betterMetadatas = _indexRepository.GetIndexMatchs(documentMetadata.DocumentId);
+            var points = 5;
 
-        private void UpdateIndexPoints(DocumentMetadata documentMetadata, List<IndexPointDTO> listIndexDto)
+            foreach (var indexPoint in documentMetadataDto.IndexPoints)
+            {
+                if (points == 20)
+                {
+                    break;
+                }
+
+                if (betterMetadatas.Any(b => b.Name.Contains(indexPoint.Name.ToLower())))
+                {
+                    points++;
+                }
+            }
+            documentMetadata.Points = points;
+        }
+
+        private async Task UpdateIndexPoints(DocumentMetadata documentMetadata, List<IndexPointDTO> listIndexDto)
         {
             if (listIndexDto.Count > 0)
             {
@@ -79,11 +97,12 @@ namespace ArquivoNacionalApi.Services
                     .Where(i => !foundIndex.Any(foundI => foundI.Name == i.Name))
                     .Select(i => new IndexPoint()
                     {
+                        DocumentsMetadata = new List<DocumentMetadata> { documentMetadata },
                         Id = Guid.NewGuid(),
                         Name = i.Name ?? ""
                     });
 
-                documentMetadata.IndexPoints.AddRange(newIndexPoints);
+                await _indexRepository.AddListIndexAsync(newIndexPoints.ToList());
             }
         }
 

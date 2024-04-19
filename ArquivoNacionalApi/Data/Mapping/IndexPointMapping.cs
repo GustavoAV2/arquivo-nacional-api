@@ -14,6 +14,9 @@ namespace ArquivoNacionalApi.Data.Mapping
 
             builder.Property(x => x.Id).HasColumnName("id").IsRequired();
             builder.Property(x => x.Name).HasColumnName("name").HasColumnType("varchar(150)").IsRequired();
+
+            builder.HasMany(x => x.DocumentsMetadata)
+                   .WithMany(i => i.IndexPoints);
         }
     }
 }

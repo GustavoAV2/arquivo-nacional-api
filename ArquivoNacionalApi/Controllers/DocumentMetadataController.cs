@@ -25,7 +25,7 @@ namespace ArquivoNacionalApi.Controllers
 
         [EndpointDescription("Atualiza os dados de metadata de determinado usuario registrado para o documento")]
         [HttpPut()]
-        public async Task<IActionResult> UpdateDocumentMetadata([FromQuery] Guid userId, [FromQuery] Guid documentId, [FromBody] UpdateDocumentMetadataDTO documentMetadataDto)
+        public async Task<ActionResult> UpdateDocumentMetadata([FromQuery] Guid userId, [FromQuery] Guid documentId, [FromBody] UpdateDocumentMetadataDTO documentMetadataDto)
         {
             var documentUpdated = await _documentMetadataService.UpdateDocumentMetadataAsync(userId, documentId, documentMetadataDto);
             if (documentUpdated)
@@ -37,7 +37,7 @@ namespace ArquivoNacionalApi.Controllers
 
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<DocumentMetadataDTO>>> GetAllDocumentMetadata()
+        public async Task<ActionResult<List<DocumentMetadataDTO>>> GetAllDocumentMetadata()
         {
             var documentMetadatas = await _documentMetadataService.GetAllDocumentMetadataAsync();
             var documentMetadataDtos = documentMetadatas.Select(dm => new DocumentMetadataDTO { 
@@ -46,6 +46,7 @@ namespace ArquivoNacionalApi.Controllers
                 Title = dm.Title ,
                 SocialMarkers = dm.SocialMarkers,
                 Context = dm.Context,
+                UserId = dm.UserId,
                 IndexPoints = dm.IndexPoints
                     .Select(i => new IndexPointDTO()
                     {
@@ -69,7 +70,7 @@ namespace ArquivoNacionalApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDocumentMetadata(Guid id)
+        public async Task<ActionResult> DeleteDocumentMetadata(Guid id)
         {
             var deleted = await _documentMetadataService.DeleteDocumentMetadataAsync(id);
             if (deleted)

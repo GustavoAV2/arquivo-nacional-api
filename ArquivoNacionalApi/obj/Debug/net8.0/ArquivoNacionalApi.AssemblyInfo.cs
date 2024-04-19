@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArquivoNacionalApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a471f7091c4cb9eee5eca276ff385bd6441e34f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26e95dba22225915cf57f3b91186fbe0d1fb6a86")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArquivoNacionalApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArquivoNacionalApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

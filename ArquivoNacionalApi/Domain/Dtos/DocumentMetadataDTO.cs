@@ -5,6 +5,7 @@ namespace ArquivoNacionalApi.Domain.Dtos
     {
         public Guid Id { get; set; }
         public Guid DocumentId { get; set; }
+        public Guid UserId { get; set; }
         public string Title { get; set; }
         public string Context { get; set; }
         public string SocialMarkers { get; set; }

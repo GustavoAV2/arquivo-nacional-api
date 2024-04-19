@@ -27,6 +27,9 @@ namespace ArquivoNacionalApi.Data.Mapping
                    .WithMany()
                    .HasForeignKey(x => x.UserId)
                    .HasPrincipalKey(x => x.Id);
+
+            builder.HasMany(x => x.IndexPoints)
+                   .WithMany(i => i.DocumentsMetadata);
         }
     }
 }

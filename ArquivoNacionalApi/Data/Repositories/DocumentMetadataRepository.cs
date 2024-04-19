@@ -21,6 +21,7 @@ namespace ArquivoNacionalApi.Data.Repositories
             var document = _context.DocumentMetadata
                 .Include(d => d.IndexPoints)
                 .Include(d => d.Document)
+                .AsTracking()
                 .FirstOrDefault(d => d.UserId == userId && d.DocumentId == documentId);
             return document;
         }
@@ -28,6 +29,17 @@ namespace ArquivoNacionalApi.Data.Repositories
         public async Task<List<DocumentMetadata>> GetAllDocumentMetadataAsync()
         {
             return await _dbSet.Include(d => d.Document).Include(d => d.IndexPoints).ToListAsync();
+        }
+
+        public List<DocumentMetadata> GetMetadataByDocumentId(Guid documentId)
+        {
+            return _context.DocumentMetadata.Where(d => d.DocumentId.Equals(documentId)).Include(d => d.IndexPoints).ToList();
+        }
+
+        public async Task UpdateMetadata(DocumentMetadata documentMetadata)
+        {
+            _context.Update(documentMetadata);
+            await SaveChangeAsync();
         }
     }
 
@@ -38,5 +50,9 @@ namespace ArquivoNacionalApi.Data.Repositories
         List<Document> GetDocumentsByUserId(Guid userId);
 
         DocumentMetadata GetDocumentMetadataByUserIdAndDocumentIdAsync(Guid userId, Guid documentId);
+
+        List<DocumentMetadata> GetMetadataByDocumentId(Guid documentId);
+
+        Task UpdateMetadata(DocumentMetadata documentMetadata);
     }
 }

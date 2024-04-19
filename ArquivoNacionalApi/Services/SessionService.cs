@@ -11,7 +11,9 @@ namespace ArquivoNacionalApi.Services
         private readonly IUserRepository _userRepository;
         private readonly IDocumentMetadataRepository _documentMetadataRepository;
 
-        public SessionService(ISessionRepository sessionRepository, IUserRepository userRepository, IDocumentMetadataRepository documentMetadataRepository)
+        public SessionService(ISessionRepository sessionRepository, 
+            IUserRepository userRepository, 
+            IDocumentMetadataRepository documentMetadataRepository)
         {
             _sessionRepository = sessionRepository;
             _userRepository = userRepository;
@@ -37,6 +39,7 @@ namespace ArquivoNacionalApi.Services
                     Points = CalcSessionPoints(u.Id, session.Id)
                 }).ToList()
             };
+
             return sessionDto;
         }
 
